@@ -1,0 +1,35 @@
+name: Automated tests for MyPets
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployment_target:
+        description: Выберите тест
+        required: true
+        default: all_tests
+        type: choice
+        options:
+          - test_get_my_pets_count
+          - all_tests
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Chrome
+        run: sudo apt-get install google-chrome-stable
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: test_img_alt_exist
+        if: "github.event.inputs.deployment_target == 'test_get_my_pets_count'"
+        run: pytest tests/tests.py::test_get_my_pets_count
+      - name: all_tests
+        if: "github.event.inputs.deployment_target == 'all_tests'"
+        run: pytest tests/tests.py
