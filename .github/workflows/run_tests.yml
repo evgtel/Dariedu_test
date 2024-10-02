@@ -1,4 +1,4 @@
-name: Automated tests for MyPets
+name: Automated tests for Dariedu
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
         default: all_tests
         type: choice
         options:
-          - test_get_my_pets_count
+          - test_users
           - all_tests
 
 
@@ -23,13 +23,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install Chrome
-        run: sudo apt-get install google-chrome-stable
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: test_img_alt_exist
-        if: "github.event.inputs.deployment_target == 'test_get_my_pets_count'"
+      - name: test_users
+        if: "github.event.inputs.deployment_target == 'test_users'"
         run: pytest tests/tests.py::test_get_my_pets_count
       - name: all_tests
         if: "github.event.inputs.deployment_target == 'all_tests'"
-        run: pytest tests/tests.py
+        run: pytest tests/api_data.py
