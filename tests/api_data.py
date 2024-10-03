@@ -1,5 +1,5 @@
 
-BASE_URL = "http://skillfactory.dariedu.site/"
+BASE_URL = "https://skillfactory.dariedu.site/"
 
 
 
