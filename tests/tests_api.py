@@ -8,7 +8,7 @@ from api_data import *
 
 @pytest.fixture(scope="class")
 def token():
-    res = requests.post(BASE_URL+'api/token/', {"tg_id": "11"})
+    res = requests.post(BASE_URL+'api/token/', {"tg_id": TG_ID})
     result = res.json()
     token = result['access']
     return token
